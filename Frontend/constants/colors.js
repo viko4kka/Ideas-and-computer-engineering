@@ -4,6 +4,7 @@ const Colors = {
 	shadowBlack: 'black',
 	shadowWhite: 'white',
 	border: '#f8f9fa',
+	whiteHover: '#e9ecef',
 };
 
 export default Colors;

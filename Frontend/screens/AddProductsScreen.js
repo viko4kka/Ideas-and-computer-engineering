@@ -1,40 +1,109 @@
-import {
-	FlatList,
-	Keyboard,
-	KeyboardAvoidingView,
-	SafeAreaView,
-	ScrollView,
-	StyleSheet,
-	Text,
-	TextInput,
-	TouchableWithoutFeedback,
-	View,
-} from 'react-native';
+import { FlatList, Platform, StyleSheet, TextInput, View } from 'react-native';
 import ProductItem from '../components/ProductItem';
 import { useEffect, useState } from 'react';
 import Colors from '../constants/colors';
 
 const products = [
-	{ id: 1, title: 'Smartwatch' },
-	{ id: 2, title: 'Desk Chair' },
-	{ id: 3, title: 'Bluetooth Speaker' },
-	{ id: 4, title: 'Backpack' },
-	{ id: 5, title: 'Coffee Maker' },
-	{ id: 6, title: 'Yoga Mat' },
-	{ id: 7, title: 'Running Shoes' },
-	{ id: 8, title: 'Sunglasses' },
-	{ id: 9, title: 'Portable Charger' },
-	{ id: 10, title: 'Digital Camera' },
-	{ id: 11, title: 'Headphones' },
-	{ id: 12, title: 'Dumbbell Set' },
-	{ id: 13, title: 'Travel Mug' },
-	{ id: 14, title: 'Gaming Console' },
-	{ id: 15, title: 'Kindle E-reader' },
-	{ id: 16, title: 'Drone' },
-	{ id: 17, title: 'External Hard Drive' },
-	{ id: 18, title: 'Graphic Tablet' },
-	{ id: 19, title: 'Portable Projector' },
-	{ id: 20, title: 'Instant Pot' },
+	{
+		id: 1,
+		title: 'Smartwatch',
+		imageLink: 'https://source.unsplash.com/600x400/?smartwatch',
+	},
+	{
+		id: 2,
+		title: 'Desk Chair',
+		imageLink: 'https://source.unsplash.com/600x400/?desk-chair',
+	},
+	{
+		id: 3,
+		title: 'Bluetooth Speaker',
+		imageLink: 'https://source.unsplash.com/600x400/?bluetooth-speaker',
+	},
+	{
+		id: 4,
+		title: 'Backpack',
+		imageLink: 'https://source.unsplash.com/600x400/?backpack',
+	},
+	{
+		id: 5,
+		title: 'Coffee Maker',
+		imageLink: 'https://source.unsplash.com/600x400/?coffee-maker',
+	},
+	{
+		id: 6,
+		title: 'Yoga Mat',
+		imageLink: 'https://source.unsplash.com/600x400/?yoga-mat',
+	},
+	{
+		id: 7,
+		title: 'Running Shoes',
+		imageLink: 'https://source.unsplash.com/600x400/?running-shoes',
+	},
+	{
+		id: 8,
+		title: 'Sunglasses',
+		imageLink: 'https://source.unsplash.com/600x400/?sunglasses',
+	},
+	{
+		id: 9,
+		title: 'Portable Charger',
+		imageLink: 'https://source.unsplash.com/600x400/?portable-charger',
+	},
+	{
+		id: 10,
+		title: 'Digital Camera',
+		imageLink: 'https://source.unsplash.com/600x400/?digital-camera',
+	},
+	{
+		id: 11,
+		title: 'Headphones',
+		imageLink: 'https://source.unsplash.com/600x400/?headphones',
+	},
+	{
+		id: 12,
+		title: 'Dumbbell Set',
+		imageLink: 'https://source.unsplash.com/600x400/?dumbbell-set',
+	},
+	{
+		id: 13,
+		title: 'Travel Mug',
+		imageLink: 'https://source.unsplash.com/600x400/?travel-mug',
+	},
+	{
+		id: 14,
+		title: 'Gaming Console',
+		imageLink: 'https://source.unsplash.com/600x400/?gaming-console',
+	},
+	{
+		id: 15,
+		title: 'Kindle E-reader',
+		imageLink: 'https://source.unsplash.com/600x400/?kindle-e-reader',
+	},
+	{
+		id: 16,
+		title: 'Drone',
+		imageLink: 'https://source.unsplash.com/600x400/?drone',
+	},
+	{
+		id: 17,
+		title: 'External Hard Drive',
+		imageLink: 'https://source.unsplash.com/600x400/?external-hard-drive',
+	},
+	{
+		id: 18,
+		title: 'Graphic Tablet',
+		imageLink: 'https://source.unsplash.com/600x400/?graphic-tablet',
+	},
+	{
+		id: 19,
+		title: 'Portable Projector',
+		imageLink: 'https://source.unsplash.com/600x400/?portable-projector',
+	},
+	{
+		id: 20,
+		title: 'Instant Pot',
+		imageLink: 'https://source.unsplash.com/600x400/?instant-pot',
+	},
 ];
 
 function AddProductsScreen() {
@@ -60,12 +129,10 @@ function AddProductsScreen() {
 			<View style={styles.flatListStyle}>
 				<FlatList
 					data={choosenProducts}
-					renderItem={({ item }) => (
-						<ProductItem title={item.title}></ProductItem>
-					)}
+					renderItem={({ item }) => <ProductItem item={item}></ProductItem>}
 					keyExtractor={(item) => item.id}
 					style={styles.flatstyle}
-					contentContainerStyle={{ paddingBottom: 20 }}
+					contentContainerStyle={{ paddingBottom: 24 }}
 					showsVerticalScrollIndicator={false}
 				/>
 			</View>
@@ -80,6 +147,7 @@ const styles = StyleSheet.create({
 	productsContainer: {
 		flex: 1,
 		alignItems: 'center',
+		marginTop: Platform.OS === 'android' && 25,
 	},
 	menuTopContainer: {
 		position: 'absolute',
@@ -93,7 +161,6 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		width: '80%',
 		borderRadius: 16,
-		elevation: 2,
 		shadowRadius: 1,
 		shadowOffset: { height: 1, width: 0 },
 		shadowOpacity: 0.2,
@@ -108,8 +175,7 @@ const styles = StyleSheet.create({
 		zIndex: -1,
 	},
 	flatstyle: {
-		paddingVertical: 16,
+		paddingVertical: 24,
 		zIndex: 1,
-		paddingBottom: 10,
 	},
 });

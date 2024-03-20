@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import Colors from '../constants/colors';
 import { Children } from 'react';
 
@@ -10,7 +10,7 @@ function Button({ children, onPress }) {
 					pressed ? [styles.pressed, styles.button] : styles.button
 				}
 				onPress={onPress}
-				android_ripple={{ color: Colors.white }}
+				android_ripple={{ color: Colors.whiteHover }}
 			>
 				<Text style={styles.buttonText}>{children}</Text>
 			</Pressable>
@@ -24,23 +24,23 @@ const styles = StyleSheet.create({
 	buttonOuterContainer: {
 		borderRadius: 28,
 		margin: 4,
-		overflow: 'hidden',
-		zIndex: 10,
+		borderRadius: 50,
+		overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
+		backgroundColor: 'white',
+		shadowColor: Colors.shadowBlack,
+		shadowOffset: { width: 0, height: 2 },
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+		elevation: 5,
 	},
 	button: {
-		zIndex: 10,
-		padding: 16,
-		paddingHorizontal: 32,
-		backgroundColor: Colors.white,
 		borderRadius: 50,
-		shadowColor: Colors.shadowBlack,
-		shadowRadius: 1,
-		shadowOffset: { height: 1, width: 1 },
-		shadowOpacity: 0.2,
-		elevation: 2,
+		paddingHorizontal: 32,
+		paddingVertical: 16,
+		backgroundColor: Colors.white,
 	},
 	pressed: {
-		opacity: 0.8,
+		opacity: 0.5,
 	},
 	buttonText: { fontSize: 16 },
 });

@@ -1,6 +1,7 @@
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import Colors from '../constants/colors';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { useEffect } from 'react';
 
 function MenuPanel({ onLogout }) {
 	const navigation = useNavigation();

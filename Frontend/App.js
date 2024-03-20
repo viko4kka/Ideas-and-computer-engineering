@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, SafeAreaView } from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
 
 import Colors from './constants/colors';
 import LoginScreen from './screens/LoginScreen';
@@ -9,7 +9,7 @@ import AddProductsScreen from './screens/AddProductsScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import FavProductsScreen from './screens/FavProductsScreen';
-import HomeScreen from './screens/HomeScreen';
+import FormScreen from './screens/FormScreen';
 
 export default function App() {
 	const [userPhoneNumber, setUserPhoneNumber] = useState();
@@ -29,24 +29,36 @@ export default function App() {
 						<Stack.Navigator
 							screenOptions={{
 								cardStyle: { backgroundColor: Colors.accent500 },
-								headerTintColor: Colors.shadowBlack,
-
+								headerTintColor: Colors.white,
 								headerStyle: {
 									backgroundColor: Colors.accent500,
-									borderBottomColor: Colors.border,
+									borderBottomColor: Colors.white,
 									borderBottomWidth: 1,
 								},
 							}}
 						>
 							<Stack.Screen
-								options={{ title: 'Add new Product' }}
+								options={{
+									headerShown: false,
+								}}
 								name='AddProductsScreen'
 								component={AddProductsScreen}
 							/>
 							<Stack.Screen
-								options={{ title: 'Your products' }}
+								options={{
+									title: 'Your forms',
+									headerTitleAlign: 'center',
+								}}
 								name='favouriteProducts'
 								component={FavProductsScreen}
+							/>
+							<Stack.Screen
+								options={{
+									title: 'form',
+									headerTitleAlign: 'center',
+								}}
+								name='formScreen'
+								component={FormScreen}
 							/>
 						</Stack.Navigator>
 						<MenuPanel onLogout={logoutHandle} />
@@ -66,7 +78,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
 	screen: {
-		position: 'relative',
 		flex: 1,
 		backgroundColor: Colors.accent500,
 	},

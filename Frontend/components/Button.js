@@ -25,8 +25,10 @@ const styles = StyleSheet.create({
 		borderRadius: 28,
 		margin: 4,
 		overflow: 'hidden',
+		zIndex: 10,
 	},
 	button: {
+		zIndex: 10,
 		padding: 16,
 		paddingHorizontal: 32,
 		backgroundColor: Colors.white,

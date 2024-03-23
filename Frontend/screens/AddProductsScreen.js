@@ -1,4 +1,11 @@
-import { FlatList, Platform, StyleSheet, TextInput, View } from 'react-native';
+import {
+	FlatList,
+	Platform,
+	StyleSheet,
+	Text,
+	TextInput,
+	View,
+} from 'react-native';
 import ProductItem from '../components/ProductItem';
 import { useEffect, useState } from 'react';
 import Colors from '../constants/colors';
@@ -130,6 +137,9 @@ function AddProductsScreen() {
 				<FlatList
 					data={choosenProducts}
 					renderItem={({ item }) => <ProductItem item={item}></ProductItem>}
+					ListEmptyComponent={
+						<Text style={{ textAlign: 'center' }}>No items found</Text>
+					}
 					keyExtractor={(item) => item.id}
 					style={styles.flatstyle}
 					contentContainerStyle={{ paddingBottom: 24 }}

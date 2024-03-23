@@ -1,16 +1,17 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import Colors from '../constants/colors';
-import { FontAwesome } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import { Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 
-function ProductItem({ item }) {
+function ProductItem({ item, readyIn }) {
 	const navigation = useNavigation();
 
 	const { imageLink, title } = item;
 
 	function pressHandler() {
-		navigation.navigate('formScreen', { item });
+		navigation.navigate('formScreen');
 	}
 
 	return (
@@ -19,15 +20,29 @@ function ProductItem({ item }) {
 				style={({ pressed }) =>
 					pressed
 						? [styles.itemContainer, styles.pressed]
-						: styles.itemContainer
+						: [styles.itemContainer, readyIn > 0 && styles.pressed]
 				}
 				android_ripple={{ color: Colors.whiteHover }}
-				onPress={pressHandler}
+				onPress={readyIn == 0 || readyIn == null ? pressHandler : null}
 			>
+				{/* {readyIn > 0 && <View style={styles.containerShadow}></View>} */}
 				<Image style={styles.image} source={{ uri: imageLink }} />
 				<Text style={styles.itemText}>{title}</Text>
 				<Text style={styles.icon}>
-					<FontAwesome name='wpforms' size={24} color='black' />
+					{readyIn > 0 ? (
+						<View style={styles.counterContainer}>
+							<View>
+								<Ionicons name='timer-outline' size={24} color='black' />
+							</View>
+							<View>
+								<Text style={styles.counterStyle}>
+									{readyIn > 1 ? `${readyIn} Days` : `${readyIn} Day`}
+								</Text>
+							</View>
+						</View>
+					) : (
+						<AntDesign name='form' size={24} color='black' />
+					)}
 				</Text>
 			</Pressable>
 		</View>
@@ -37,7 +52,10 @@ function ProductItem({ item }) {
 export default ProductItem;
 
 const styles = StyleSheet.create({
-	itemOuterContainer: {},
+	itemOuterContainer: {
+		position: 'relative',
+	},
+
 	itemContainer: {
 		flexDirection: 'row',
 		justifyContent: 'center',
@@ -52,6 +70,14 @@ const styles = StyleSheet.create({
 		shadowOffset: { height: 1, width: 1 },
 		shadowOpacity: 0.2,
 		elevation: 2,
+	},
+	containerShadow: {
+		position: 'absolute',
+		width: '100%',
+		height: '100%',
+		backgroundColor: 'black',
+		zIndex: 100,
+		opacity: 0.2,
 	},
 	image: {
 		borderRadius: 18,
@@ -73,4 +99,13 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 	},
 	pressed: { backgroundColor: Colors.whiteHover },
+	counterContainer: {
+		flex: 1,
+		flexDirection: 'column',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	counterStyle: {
+		fontSize: 12,
+	},
 });
